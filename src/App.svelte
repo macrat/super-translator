@@ -107,7 +107,7 @@
 </script>
 
 <main>
-  <textarea bind:value={input} autofocus bind:this={fromElm} on:scroll={syncScroll(fromElm, toElm)} />
+  <textarea bind:value={input} autofocus bind:this={fromElm} on:scroll={syncScroll(fromElm, toElm)} placeholder="Input text here" />
   <form on:submit|preventDefault={() => run(true)}>
     <label>From<input bind:value={from} autocomplete="on" list="languages" on:change={saveSettings} /></label>
     <label>To<input bind:value={to} autocomplete="on" list="languages" on:change={saveSettings} /></label>
