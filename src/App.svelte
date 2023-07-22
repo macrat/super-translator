@@ -189,6 +189,29 @@
     display: block;
     width: 9em;
   }
+
+  @media (max-width: 720px) {
+    main {
+      flex-direction: column;
+      height: 100vh;
+    }
+    form {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    label {
+      flex: 1 0 40%;
+      min-width: 100px;
+      margin: 8px;
+    }
+    button {
+      flex: 1 1 100%;
+      margin: 8px;
+    }
+    input, select {
+      width: 100%;
+    }
+  }
 </style>
 
 <svelte:window on:popstate={loadQuery} />
