@@ -156,6 +156,7 @@
   :global(body) {
     margin: 0;
     height: 100vh;
+    height: 100dvh;
   }
   main {
     display: flex;
@@ -166,6 +167,7 @@
     flex-direction: column;
     flex: 1 1 0;
     height: 100vh;
+    height: 100dvh;
     overflow: auto;
     font-family: inherit;
     font-size: inherit;
@@ -194,6 +196,7 @@
     main {
       flex-direction: column;
       height: 100vh;
+      height: 100dvh;
     }
     form {
       flex-direction: row;
