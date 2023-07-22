@@ -62,14 +62,22 @@
     translateID += 1;
     const id = translateID;
 
-    const read = await translate({ input, from, to, apikey, model });
-    while (translateID === id) {
-      const { done, content } = await read();
-      if (done) {
-        break;
-      }
+    try {
+      const read = await translate({ input, from, to, apikey, model });
+      while (translateID === id) {
+        const { done, content } = await read();
+        if (done) {
+          break;
+        }
 
-      output += content;
+        output += content;
+      }
+    } catch(err) {
+      alert('Failed to translate.');
+      if (output !== '') {
+        output += '\n\n---\n\n';
+      }
+      output += 'ERROR:\n' + JSON.stringify(err, '', '  ');
     }
   }
 
