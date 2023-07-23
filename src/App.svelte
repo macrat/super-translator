@@ -122,8 +122,8 @@
 
     <datalist id="languages">
       <option value="auto" />
-      <option value="Professional" />
-      <option value="Friendly" />
+      <option value="Formal" />
+      <option value="Casual" />
       <option value="Explanation" />
       <option value="Summary" />
       <option value="Bullet points" />
@@ -141,12 +141,7 @@
       <option value="Python" />
       <option value="Java" />
       <option value="Typescript" />
-      <option value="C#" />
-      <option value="C++" />
-      <option value="PHP" />
-      <option value="Shell" />
-      <option value="C" />
-      <option value="Ruby" />
+      <option value="Go" />
     </datalist>
   </form>
   <textarea bind:this={toElm} on:scroll={syncScroll(toElm, fromElm)} value={output} readonly />
