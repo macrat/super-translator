@@ -1,5 +1,5 @@
 {
-  "ja-jp": [
+  "ja": [
     "auto",
     "ビジネス文書",
     "若者言葉",
@@ -23,7 +23,7 @@
     "JSON",
     "Markdown"
   ],
-  "default": [
+  "en": [
     "auto",
     "Business",
     "Teen slang",

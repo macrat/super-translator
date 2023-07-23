@@ -122,7 +122,7 @@
     </select></label>
 
     <datalist id="languages">
-      {#each (languages[navigator.language.toLowerCase()] ?? languages.default) as value}
+      {#each (languages[navigator.language.split('-')[0].toLowerCase()] ?? languages.en) as value}
         <option {value} />
       {/each}
     </datalist>
