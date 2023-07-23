@@ -19,19 +19,28 @@ export default async function translate({ input, from, to, apikey, model }: Opti
       stream: true,
       messages: [{
         role: 'system',
-        content: 'Give translation that user want. Use the same language as input if not specified.',
+        content: 'Give convertion that user want. Use the same language as input if not specified.',
       }, {
         role: 'user',
-        content: 'Translate following 日本語 to English.',
+        content: 'source: auto\noutput: English',
       }, {
         role: 'user',
-        content: 'こんにちは！ お元気ですか？',
+        content: 'Hallo! Wie geht es dir?',
       }, {
         role: 'assistant',
-        content: 'Hello! How are you?',
+        content: 'Hello! How are you doing?',
       }, {
         role: 'user',
-        content: 'Translate following message to Python.',
+        content: 'source: Casual\noutput: Formal',
+      }, {
+        role: 'user',
+        content: 'やあ！ 元気？',
+      }, {
+        role: 'assistant',
+        content: 'こんにちは。お元気ですか？',
+      }, {
+        role: 'user',
+        content: 'source: JavaScript\noutput: Python',
       }, {
         role: 'user',
         content: 'function greeting() {\n  console.log("hello");\n}',
@@ -40,7 +49,7 @@ export default async function translate({ input, from, to, apikey, model }: Opti
         content: 'def greeting():\n    print("hello")',
       }, {
         role: 'user',
-        content: `Translate following ${from.trim() === 'auto' ? 'message' : from.trim() || 'auto'} to ${to.trim()}.`,
+        content: `source: ${from.trim() === 'auto' ? 'message' : from.trim() || 'auto'}\noutput: ${to.trim()}`,
       }, {
         role: 'user',
         content: input,
