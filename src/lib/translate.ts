@@ -18,26 +18,20 @@ export default async function translate({ input, from, to, apikey, model }: Opti
       temperature: 0,
       stream: true,
       messages: [{
-        role: 'user',
-        content: 'Translate following Deutsch to English.',
+        role: 'system',
+        content: 'Give translation that user want. Use the same language as input if not specified.',
       }, {
         role: 'user',
-        content: 'Hallo! Wie geht es dir?',
+        content: 'Translate following 日本語 to English.',
+      }, {
+        role: 'user',
+        content: 'こんにちは！ お元気ですか？',
       }, {
         role: 'assistant',
-        content: 'Hello! How are you doing?',
+        content: 'Hello! How are you?',
       }, {
         role: 'user',
-        content: 'Translate following Casual to Formal.',
-      }, {
-        role: 'user',
-        content: 'やあ！ 元気？',
-      }, {
-        role: 'assistant',
-        content: 'こんにちは。お元気ですか？',
-      }, {
-        role: 'user',
-        content: 'Translate following JavaScript to Python.',
+        content: 'Translate following message to Python.',
       }, {
         role: 'user',
         content: 'function greeting() {\n  console.log("hello");\n}',
