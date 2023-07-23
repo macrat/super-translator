@@ -10,7 +10,7 @@
   let model = 'gpt-3.5-turbo'
 
   let fromElm: HTMLTextAreaElement;
-  let toElm: HTMLPreElement;
+  let toElm: HTMLTextAreaElement;
 
   const syncScroll = (source: HTMLElement, target: HTMLElement) => () => {
     const pos = source.scrollTop / (source.scrollHeight - source.clientHeight);
@@ -149,7 +149,7 @@
       <option value="Ruby" />
     </datalist>
   </form>
-  <pre class="output" bind:this={toElm} on:scroll={syncScroll(toElm, fromElm)}>{output}</pre>
+  <textarea bind:this={toElm} on:scroll={syncScroll(toElm, fromElm)} value={output} readonly />
 </main>
 
 <style>
@@ -162,7 +162,7 @@
     display: flex;
   }
 
-  textarea, pre {
+  textarea {
     display: flex;
     flex-direction: column;
     flex: 1 1 0;
@@ -171,7 +171,6 @@
     overflow: auto;
     font-family: inherit;
     font-size: inherit;
-    white-space: pre-wrap;
     margin: 0;
     padding: 12px 16px;
     box-sizing: border-box;
