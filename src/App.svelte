@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import translate from './lib/translate';
+  import languages from './languages.json';
 
   let input = '';
   let output = '';
@@ -121,27 +122,9 @@
     </select></label>
 
     <datalist id="languages">
-      <option value="auto" />
-      <option value="Formal" />
-      <option value="Casual" />
-      <option value="Explanation" />
-      <option value="Summary" />
-      <option value="Bullet points" />
-      <option value="English" />
-      <option value="中文" />
-      <option value="हिंदी" />
-      <option value="español" />
-      <option value="اللغة العربية" />
-      <option value="বাংলা" />
-      <option value="Português" />
-      <option value="русский язык" />
-      <option value="日本語" />
-      <option value="Deutsch" />
-      <option value="JavaScript" />
-      <option value="Python" />
-      <option value="Java" />
-      <option value="Typescript" />
-      <option value="Go" />
+      {#each (languages[navigator.language.toLowerCase()] ?? languages.default) as value}
+        <option {value} />
+      {/each}
     </datalist>
   </form>
   <textarea bind:this={toElm} on:scroll={syncScroll(toElm, fromElm)} value={output} readonly />
