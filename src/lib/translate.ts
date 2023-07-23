@@ -18,29 +18,23 @@ export default async function translate({ input, from, to, apikey, model }: Opti
       temperature: 0,
       stream: true,
       messages: [{
-        role: 'user',
-        content: 'Translate following 日本語 to English.',
+        role: 'system',
+        content: 'Give conversion from source to output. Use the same language as source if not specified language.',
       }, {
         role: 'user',
-        content: 'こんにちは！ お元気ですか？',
+        content: 'source: Casual\noutput: Formal\n\n###\n\nやあ！ 元気？',
       }, {
         role: 'assistant',
-        content: 'Hello! How are you?',
+        content: 'こんにちは。お元気ですか？',
       }, {
         role: 'user',
-        content: 'Translate following message to Python.',
-      }, {
-        role: 'user',
-        content: 'function greeting() {\n  console.log("hello");\n}',
+        content: 'source: auto\noutput: Python\n\n###\n\nfunction greeting() {\n  console.log("hello");\n}',
       }, {
         role: 'assistant',
         content: 'def greeting():\n    print("hello")',
       }, {
         role: 'user',
-        content: `Translate following ${from.trim() === 'auto' ? 'message' : from.trim() || 'auto'} to ${to.trim()}.`,
-      }, {
-        role: 'user',
-        content: input,
+        content: `source: ${from.trim()}\noutput: ${to.trim()}\n\n###\n\n${input}`,
       }],
     }),
   });
