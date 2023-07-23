@@ -18,9 +18,6 @@ export default async function translate({ input, from, to, apikey, model }: Opti
       temperature: 0,
       stream: true,
       messages: [{
-        role: 'system',
-        content: 'Give convertion that user want. Use the same language as source if not specified.',
-      }, {
         role: 'user',
         content: 'source: Casual\noutput: Formal',
       }, {
@@ -39,11 +36,8 @@ export default async function translate({ input, from, to, apikey, model }: Opti
         role: 'assistant',
         content: 'def greeting():\n    print("hello")',
       }, {
-        role: 'system',
-        content: 'Use the same language as source if not specified.',
-      }, {
         role: 'user',
-        content: `source: ${from.trim() === 'auto' ? 'message' : from.trim() || 'auto'}\noutput: ${to.trim()}`,
+        content: `source: ${from.trim()}\noutput: ${to.trim()}`,
       }, {
         role: 'user',
         content: input,
