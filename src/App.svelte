@@ -3,10 +3,13 @@
   import translate from './lib/translate';
   import languages from './languages.json';
 
+  const languageSet = languages[navigator.language.split('-')[0].toLowerCase()] ?? languages.en;
+  const defaultLanguage = languageSet[0];
+
   let input = '';
   let output = '';
   let from = 'auto';
-  let to = 'English';
+  let to = defaultLanguage;
   let apikey = '';
   let model = 'gpt-3.5-turbo'
 
@@ -30,7 +33,7 @@
     const query = new URLSearchParams(location.search);
     input = query.get('text') ?? '';
     from = query.get('sl') ?? 'auto';
-    to = query.get('tl') ?? 'English';
+    to = query.get('tl') ?? defaultLanguage;
 
     if (input.trim() && apikey.trim()) {
       run();
@@ -53,7 +56,7 @@
       from = 'auto';
     }
     if (!to.trim()) {
-      to = 'English';
+      to = defaultLanguage;
     }
 
     if (setHistory) {
@@ -110,8 +113,8 @@
 <main>
   <textarea bind:value={input} autofocus bind:this={fromElm} on:scroll={syncScroll(fromElm, toElm)} placeholder="Input text here" />
   <form on:submit|preventDefault={() => run(true)}>
-    <label>From<input bind:value={from} autocomplete="on" list="languages" on:change={saveSettings} /></label>
-    <label>To<input bind:value={to} autocomplete="on" list="languages" on:change={saveSettings} /></label>
+    <label>From<input bind:value={from} autocomplete="on" list="languages-from" on:change={saveSettings} /></label>
+    <label>To<input bind:value={to} autocomplete="on" list="languages-to" on:change={saveSettings} /></label>
     <button>Translate!</button>
     <label>OpenAI API Key<input bind:value={apikey} type="password" required on:change={saveSettings} /></label>
     <label>Model<select bind:value={model} on:change={saveSettings}>
@@ -121,8 +124,15 @@
       <option value="gpt-4-32k">gpt-4-32k</option>
     </select></label>
 
-    <datalist id="languages">
-      {#each (languages[navigator.language.split('-')[0].toLowerCase()] ?? languages.en) as value}
+    <datalist id="languages-from">
+      <option value="auto" />
+      {#each languageSet as value}
+        <option {value} />
+      {/each}
+    </datalist>
+
+    <datalist id="languages-to">
+      {#each languageSet as value}
         <option {value} />
       {/each}
     </datalist>
