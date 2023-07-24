@@ -137,7 +137,7 @@
       {/each}
     </datalist>
   </form>
-  <textarea bind:this={toElm} on:scroll={syncScroll(toElm, fromElm)} value={output} readonly />
+  <textarea bind:this={toElm} on:scroll={syncScroll(toElm, fromElm)} value={output} readonly placeholder="Translated version here" />
 </main>
 
 <style>
