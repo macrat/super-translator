@@ -32,8 +32,8 @@
   function loadQuery() {
     const query = new URLSearchParams(location.search);
     input = query.get('text') ?? '';
-    from = query.get('sl') ?? 'auto';
-    to = query.get('tl') ?? defaultLanguage;
+    from = query.get('sl') || from || 'auto';
+    to = query.get('tl') || to || defaultLanguage;
 
     if (input.trim() && apikey.trim()) {
       run();
