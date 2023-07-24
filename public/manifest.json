@@ -38,12 +38,6 @@
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable"
-    },
-    {
-      "src": "/mono-icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "monochrome maskable"
     }
   ]
 }
