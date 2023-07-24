@@ -1,5 +1,4 @@
-Supser Translator powered by GPT
-================================
+![Super Translator](./banner.svg)
 
 Translate anything to anything using GPT!
 
