@@ -115,7 +115,7 @@
   <form on:submit|preventDefault={() => run(true)}>
     <label>From<input bind:value={from} autocomplete="on" list="languages-from" on:change={saveSettings} /></label>
     <label>To<input bind:value={to} autocomplete="on" list="languages-to" on:change={saveSettings} /></label>
-    <button>Translate!</button>
+    <button>Translate</button>
     <label>OpenAI API Key<input bind:value={apikey} type="password" required on:change={saveSettings} /></label>
     <label>Model<select bind:value={model} on:change={saveSettings}>
       <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
@@ -162,7 +162,7 @@
     margin: 0;
     padding: 12px 16px;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 1px solid #000;
   }
 
   form {
@@ -174,9 +174,48 @@
   label, button {
     margin: 8px 0;
   }
-  input, select {
+  input, select, button {
     display: block;
-    width: 9em;
+    width: 9rem;
+    box-sizing: border-box;
+  }
+  label {
+    font-size: 80%;
+    color: #666;
+  }
+  input, select {
+    font-size: 120%;
+    border: none;
+    border-bottom: 2px solid #aaa;
+    padding: 8px 4px;
+    background-color: #f3f3f3;
+  }
+  input:focus, select:focus {
+    border-bottom: 2px solid #000;
+    outline: none;
+  }
+  button {
+    color: #fff;
+    background-color: #766;
+    padding: 8px 4px;
+    border: none;
+    border-radius: 8px;
+  }
+  button:focus {
+    outline: 1px solid #000;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, .4);
+  }
+  button:active {
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, .4);
+  }
+  textarea {
+    border: none;
+    resize: none;
+    color: #333;
+    background-color: #eee;
+  }
+  textarea:focus {
+    outline: 2px solid #000;
   }
 
   @media (max-width: 720px) {
@@ -200,6 +239,31 @@
     }
     input, select {
       width: 100%;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    main {
+      background-color: #111;
+    }
+    label {
+      color: #aaa;
+    }
+    input, select, textarea {
+      color: #eee;
+      background-color: #333;
+    }
+    input, select {
+      border-bottom-color: #999;
+    }
+    input:focus, select:focus {
+      border-bottom-color: #f0f0f0;
+    }
+    button:focus {
+      outline-color: white;
+    }
+    textarea:focus {
+      outline: 1px solid #aaa;
     }
   }
 </style>
