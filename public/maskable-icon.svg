@@ -1,2 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg version="1.1" viewBox="0 0 67.733 67.733" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="a"><path d="m-41.24 5.7548v7.6295h-18.563v4.1873h6.7458c2.5588 7.1181 5.9553 13.166 10.468 18.098-4.7919 3.8614-10.747 6.6992-17.912 8.6532 0.88394 1.07 2.2793 3.1173 2.7445 4.2338 7.3042-2.3262 13.399-5.4433 18.47-9.6769 1.6365 1.4244 3.3924 2.7245 5.2787 3.9005l1.7151-4.7656c-1.179-0.77433-2.301-1.6029-3.3652-2.4846 4.5593-4.7454 8.0953-10.654 10.747-17.958h6.9319v-4.1873h-18.842v-7.6295zm-7.0719 11.817h18.33c-2.1866 5.955-5.1638 10.886-9.0718 14.887-4.0475-4.1406-7.1183-9.1651-9.2583-14.887zm21.85 10.854-11.707 32.037h6.0766l2.8598-8.445h12.019l2.9042 8.445h6.0766l-11.707-32.037zm3.2618 4.6467c0.11915 0.50639 0.28293 1.1468 0.49144 1.9213 0.2383 0.7447 0.47638 1.4746 0.71469 2.1895 0.2383 0.71491 0.41725 1.2805 0.5364 1.6976l2.7699 8.2217h-8.9808l2.8148-8.2217c0.08936-0.35746 0.23848-0.87861 0.447-1.5637 0.20852-0.68512 0.41729-1.415 0.6258-2.1895 0.2383-0.77448 0.4319-1.4594 0.58084-2.0552z" display="block" opacity=".9888" stroke-linecap="round" stroke-linejoin="round" stroke-width=".26511"/></clipPath></defs><rect width="67.733" height="67.733" fill="#333" opacity=".9888" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.002"/><path transform="translate(68.228 .654)" d="m-7.2681 33.213a27.093 27.093 0 0 1-27.093 27.093 27.093 27.093 0 0 1-27.093-27.093 27.093 27.093 0 0 1 27.093-27.093 27.093 27.093 0 0 1 27.093 27.093z" clip-path="url(#a)" opacity=".9888" stroke-linecap="round" stroke-linejoin="round" stroke-width=".26511"/><style>rect{fill:#333}path{fill:#eee}@media(prefers-color-scheme: dark){rect{fill:#eee}path{fill:#333}}</style></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   viewBox="0 0 512 512"
+   id="svg2410"
+   sodipodi:docname="maskable-icon.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2412"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="2.6074563"
+     inkscape:cx="96.262401"
+     inkscape:cy="230.49284"
+     inkscape:current-layer="svg2410" />
+  <defs
+     id="defs2402">
+    <clipPath
+       id="a">
+      <path
+         d="m-41.24 5.7548v7.6295h-18.563v4.1873h6.7458c2.5588 7.1181 5.9553 13.166 10.468 18.098-4.7919 3.8614-10.747 6.6992-17.912 8.6532 0.88394 1.07 2.2793 3.1173 2.7445 4.2338 7.3042-2.3262 13.399-5.4433 18.47-9.6769 1.6365 1.4244 3.3924 2.7245 5.2787 3.9005l1.7151-4.7656c-1.179-0.77433-2.301-1.6029-3.3652-2.4846 4.5593-4.7454 8.0953-10.654 10.747-17.958h6.9319v-4.1873h-18.842v-7.6295zm-7.0719 11.817h18.33c-2.1866 5.955-5.1638 10.886-9.0718 14.887-4.0475-4.1406-7.1183-9.1651-9.2583-14.887zm21.85 10.854-11.707 32.037h6.0766l2.8598-8.445h12.019l2.9042 8.445h6.0766l-11.707-32.037zm3.2618 4.6467c0.11915 0.50639 0.28293 1.1468 0.49144 1.9213 0.2383 0.7447 0.47638 1.4746 0.71469 2.1895 0.2383 0.71491 0.41725 1.2805 0.5364 1.6976l2.7699 8.2217h-8.9808l2.8148-8.2217c0.08936-0.35746 0.23848-0.87861 0.447-1.5637 0.20852-0.68512 0.41729-1.415 0.6258-2.1895 0.2383-0.77448 0.4319-1.4594 0.58084-2.0552z"
+         display="block"
+         opacity=".9888"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         stroke-width=".26511"
+         id="path2399" />
+    </clipPath>
+  </defs>
+  <rect
+     width="512"
+     height="512"
+     fill="#333"
+     opacity=".9888"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="1.002"
+     id="rect2404" />
+  <path
+     transform="matrix(7.7867167,0,0,7.7867167,523.6057,-2.6202218)"
+     d="m -7.2681,33.213 a 27.093,27.093 0 0 1 -27.093,27.093 27.093,27.093 0 0 1 -27.093,-27.093 27.093,27.093 0 0 1 27.093,-27.093 27.093,27.093 0 0 1 27.093,27.093 z"
+     clip-path="url(#a)"
+     opacity="0.9888"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="0.0340465"
+     id="path2406" />
+  <style
+     id="style2408">rect{fill:#333}path{fill:#eee}@media(prefers-color-scheme: dark){rect{fill:#eee}path{fill:#333}}</style>
+</svg>
