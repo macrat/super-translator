@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Super Translator powered by GPT</title>
+    <meta name="description" content="Translate anything to anything using GPT!" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
+    <meta name="theme-color" content="#eee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#333" media="(prefers-color-scheme: dark)" />
+    <style>
+html {
+  color: #333;
+  background-color: #eee;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+h1 {
+  margin: 0 16px 0 0;
+  padding: 0 16px 0 0;
+  border-right: 1px solid #333;
+}
+@media (prefers-color-scheme: dark) {
+  html {
+    color: #eee;
+    background-color: #333;
+  }
+  h1 {
+    border-right-color: #eee;
+  }
+}
+@media (max-width: 720px) {
+  body {
+    flex-direction: column;
+  }
+  h1 {
+    margin: 0 0 8px 0;
+    padding: 0 0 4px 0;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+}
+    </style>
+  </head>
+
+  <body>
+    <h1>Offline</h1>
+    Please check your connection.
+  </body>
+</html>
