@@ -4,7 +4,7 @@
   "short_name": "Super Translator",
   "description": "Translate anything to anything!",
   "category": ["utilities", "productivity"],
-  "start_url": "https://translate.macr.app/",
+  "start_url": "/",
   "display": "standalone",
   "orientation": "any",
   "theme_color": "#333",
@@ -46,5 +46,13 @@
       "type": "image/svg+xml",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "share_target": {
+    "action": "/",
+    "method": "GET",
+    "params": {
+      "sl": "auto",
+      "text": "text"
+    }
+  }
 }

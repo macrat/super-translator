@@ -31,7 +31,7 @@
 
   function loadQuery() {
     const query = new URLSearchParams(location.search);
-    input = query.get('text') ?? '';
+    input = query.get('text') || '';
     from = query.get('sl') || from || 'auto';
     to = query.get('tl') || to || defaultLanguage;
 
@@ -87,15 +87,14 @@
 
   onMount(() => {
     const raw = localStorage.getItem('super-translator-settings');
-    if (!raw) {
-      return;
-    }
 
-    const settings = JSON.parse(raw);
-    model = settings.model;
-    apikey = settings.apikey;
-    from = settings.from;
-    to = settings.to;
+    if (raw) {
+      const settings = JSON.parse(raw);
+      model = settings.model;
+      apikey = settings.apikey;
+      from = settings.from;
+      to = settings.to;
+    }
 
     loadQuery();
   });
