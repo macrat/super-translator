@@ -30,6 +30,17 @@ self.addEventListener('activate', (ev) => {
 self.addEventListener('fetch', (ev) => {
   if (ev.request.mode === 'navigate') {
     ev.respondWith((async () => {
+      const url = new URL(ev.request.url);
+      const pathname = url.pathname;
+
+      if (pathname === '/via-share') {
+        const params = new URLSearchParams();
+        params.append('text', new URLSearchParams(url.search).get('text'));
+        params.append('sl', 'auto');
+        params.append('tl', 'auto');
+        return Response.redirect('/?' + params.toString(), 302);
+      }
+
       try {
         const preloaded = await ev.preloadResponse;
         if (preloaded) {
@@ -40,7 +51,7 @@ self.addEventListener('fetch', (ev) => {
       } catch (err) {
         const cache = await caches.open(CACHE_NAME);
 
-        if (new URL(ev.request.url).pathname === '/') {
+        if (pathname === '/') {
           return cache.match('/offline.html');
         } else {
           return cache.match(ev.request);

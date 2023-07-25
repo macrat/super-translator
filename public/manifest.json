@@ -48,10 +48,9 @@
     }
   ],
   "share_target": {
-    "action": "/",
+    "action": "/via-share",
     "method": "GET",
     "params": {
-      "sl": "auto",
       "text": "text"
     }
   }

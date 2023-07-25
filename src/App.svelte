@@ -3,8 +3,9 @@
   import translate from './lib/translate';
   import languages from './languages.json';
 
-  const languageSet = languages[navigator.language.split('-')[0].toLowerCase()] ?? languages.en;
-  const defaultLanguage = languageSet[0];
+  const preferLanguage = navigator.language.split('-')[0].toLowerCase()
+  const languageSet = languages[preferLanguage] ?? languages.en;
+  const defaultLanguage = new Intl.DisplayNames([preferLanguage], { type: 'language' }).of(preferLanguage);
 
   let input = '';
   let output = '';
@@ -34,6 +35,9 @@
     input = query.get('text') || '';
     from = query.get('sl') || from || 'auto';
     to = query.get('tl') || to || defaultLanguage;
+    if (to === 'auto') {
+      to = defaultLanguage;
+    }
 
     if (input.trim() && apikey.trim()) {
       run();
@@ -55,7 +59,7 @@
     if (!from.trim()) {
       from = 'auto';
     }
-    if (!to.trim()) {
+    if (!to.trim() || to.trim() === 'auto') {
       to = defaultLanguage;
     }
 
