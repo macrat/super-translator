@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import translate from './lib/translate';
+  import { models, refreshModels } from './lib/models';
   import languages from './languages.json';
 
   const preferLanguage = navigator.language.split('-')[0].toLowerCase()
@@ -16,6 +17,7 @@
 
   let fromElm: HTMLTextAreaElement;
   let toElm: HTMLTextAreaElement;
+  let keyElm: HTMLInputElement;
 
   const syncScroll = (source: HTMLElement, target: HTMLElement) => () => {
     const pos = source.scrollTop / (source.scrollHeight - source.clientHeight);
@@ -98,6 +100,12 @@
       apikey = settings.apikey;
       from = settings.from;
       to = settings.to;
+
+      refreshModels(apikey).catch((err) => {
+        if (err.message === 'invalid key') {
+          apikey = '';
+        }
+      });
     }
 
     loadQuery();
@@ -111,6 +119,17 @@
       to,
     }));
   }
+
+  function onChangeAPIKey() {
+    saveSettings();
+
+    keyElm.setCustomValidity('');
+    refreshModels(apikey).catch((err) => {
+      if (err.message === 'invalid key') {
+        keyElm.setCustomValidity('API Key is not valid.');
+      }
+    });
+  }
 </script>
 
 <main>
@@ -119,12 +138,11 @@
     <label>From<input bind:value={from} autocomplete="on" list="languages-from" on:change={saveSettings} /></label>
     <label>To<input bind:value={to} autocomplete="on" list="languages-to" on:change={saveSettings} /></label>
     <button>Translate</button>
-    <label>OpenAI API Key<input bind:value={apikey} type="password" required pattern="sk-[a-zA-Z0-9]+" autocomplete="off" on:change={saveSettings} /></label>
+    <label>OpenAI API Key<input bind:this={keyElm} bind:value={apikey} type="password" required pattern="sk-[a-zA-Z0-9]+" autocomplete="off" on:change={onChangeAPIKey} /></label>
     <label>Model<select bind:value={model} on:change={saveSettings}>
-      <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
-      <option value="gpt-3.5-turbo-16k">gpt-3.5-turbo-16k</option>
-      <option value="gpt-4">gpt-4</option>
-      <option value="gpt-4-32k">gpt-4-32k</option>
+      {#each $models as model}
+        <option value={model}>{model}</option>
+      {/each}
     </select></label>
 
     <datalist id="languages-from">
