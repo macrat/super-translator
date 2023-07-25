@@ -81,7 +81,7 @@
       if (output !== '') {
         output += '\n\n---\n\n';
       }
-      output += 'ERROR:\n' + JSON.stringify(err, '', '  ');
+      output += 'ERROR:\n' + JSON.stringify(err, null, '  ');
     }
   }
 
@@ -116,7 +116,7 @@
     <label>From<input bind:value={from} autocomplete="on" list="languages-from" on:change={saveSettings} /></label>
     <label>To<input bind:value={to} autocomplete="on" list="languages-to" on:change={saveSettings} /></label>
     <button>Translate</button>
-    <label>OpenAI API Key<input bind:value={apikey} type="password" required on:change={saveSettings} /></label>
+    <label>OpenAI API Key<input bind:value={apikey} type="password" required pattern="sk-[a-zA-Z0-9]+" autocomplete="off" on:change={saveSettings} /></label>
     <label>Model<select bind:value={model} on:change={saveSettings}>
       <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
       <option value="gpt-3.5-turbo-16k">gpt-3.5-turbo-16k</option>
@@ -143,23 +143,21 @@
 <style>
   :global(body) {
     margin: 0;
-    height: 100vh;
-    height: 100dvh;
   }
   main {
     display: flex;
+    height: 100vh;
+    height: 100dvh;
   }
 
   textarea {
     display: flex;
     flex-direction: column;
     flex: 1 1 0;
-    height: 100vh;
-    height: 100dvh;
     overflow: auto;
     font-family: inherit;
     font-size: inherit;
-    margin: 0;
+    margin: 12px;
     padding: 12px 16px;
     box-sizing: border-box;
     border: 1px solid #000;
@@ -169,7 +167,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 4px 12px;
+    padding: 4px 0;
   }
   label, button {
     margin: 8px 0;
@@ -189,33 +187,50 @@
     border-bottom: 2px solid #aaa;
     padding: 8px 4px;
     background-color: #f3f3f3;
+    transition: .2s border-color;
   }
   input:focus, select:focus {
     border-bottom: 2px solid #000;
     outline: none;
+  }
+  input:invalid {
+    border-bottom-color: #f99;
+  }
+  input:focus:invalid {
+    border-bottom-color: #f00;
   }
   button {
     color: #fff;
     background-color: #766;
     padding: 8px 4px;
     border: none;
-    border-radius: 8px;
+    transition: .1s background-color, .1s outline;
+    cursor: pointer;
   }
   button:focus {
-    outline: 1px solid #000;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, .4);
+    outline: 2px solid #000;
   }
   button:active {
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, .4);
+    background-color: #988;
   }
   textarea {
     border: none;
     resize: none;
     color: #333;
     background-color: #eee;
+    transition: .1s outline;
   }
   textarea:focus {
     outline: 2px solid #000;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #ddd;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #999;
   }
 
   @media (max-width: 720px) {
@@ -260,10 +275,19 @@
       border-bottom-color: #f0f0f0;
     }
     button:focus {
-      outline-color: white;
+      outline-color: #eee;
+    }
+    button:active {
+      background-color: #877;
     }
     textarea:focus {
       outline: 1px solid #aaa;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: #444;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #888;
     }
   }
 </style>
