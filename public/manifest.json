@@ -3,6 +3,7 @@
   "name": "Super Translator powered by GPT",
   "short_name": "Super Translator",
   "description": "Translate anything to anything!",
+  "category": ["utilities", "productivity"],
   "start_url": "https://translate.macr.app/",
   "display": "standalone",
   "orientation": "any",
