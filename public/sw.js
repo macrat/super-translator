@@ -28,35 +28,47 @@ self.addEventListener('activate', (ev) => {
 
 
 self.addEventListener('fetch', (ev) => {
-  if (ev.request.mode === 'navigate') {
-    ev.respondWith((async () => {
-      const url = new URL(ev.request.url);
-      const pathname = url.pathname;
+  ev.respondWith((async () => {
+    const url = new URL(ev.request.url);
+    const pathname = url.pathname;
 
-      if (pathname === '/via-share') {
-        const params = new URLSearchParams();
-        params.append('text', new URLSearchParams(url.search).get('text'));
-        params.append('sl', 'auto');
-        params.append('tl', 'auto');
-        return Response.redirect('/?' + params.toString(), 302);
+    if (pathname === '/via-share') {
+      const params = new URLSearchParams();
+      params.append('text', new URLSearchParams(url.search).get('text'));
+      params.append('sl', 'auto');
+      params.append('tl', 'auto');
+      return Response.redirect('/?' + params.toString(), 302);
+    }
+
+    const cache = await caches.open(CACHE_NAME);
+
+    try {
+      const preloaded = await ev.preloadResponse;
+      if (preloaded) {
+        if (pathname.startsWith('/assets/') && preloaded.ok) {
+          cache.put(ev.request, preloaded.clone());
+        }
+        return preloaded;
       }
 
-      try {
-        const preloaded = await ev.preloadResponse;
-        if (preloaded) {
-          return preloaded;
-        }
-
-        return fetch(ev.request);
-      } catch (err) {
-        const cache = await caches.open(CACHE_NAME);
-
-        if (pathname === '/') {
-          return cache.match('/offline.html');
-        } else {
-          return cache.match(ev.request);
+      if (pathname.startsWith('/assets/')) {
+        const matched = await cache.match(ev.request);
+        if (matched) {
+          return matched;
         }
       }
-    })());
-  }
+
+      const resp = await fetch(ev.request);
+      if (pathname.startsWith('/assets/') && resp.ok) {
+        cache.put(ev.request, resp.clone());
+      }
+      return resp;
+    } catch (err) {
+      if (pathname === '/') {
+        return cache.match('/offline.html');
+      } else {
+        return cache.match(ev.request);
+      }
+    }
+  })());
 });
