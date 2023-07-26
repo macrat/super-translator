@@ -232,7 +232,7 @@
     background-color: #766;
     padding: 8px 4px;
     border: none;
-    transition: .1s background-color, .1s outline;
+    transition: .1s background-color;
     cursor: pointer;
   }
   button:focus {
@@ -246,7 +246,6 @@
     resize: none;
     color: #333;
     background-color: #eee;
-    transition: .1s outline;
   }
   textarea:focus {
     outline: 2px solid #000;
