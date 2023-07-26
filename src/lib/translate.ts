@@ -48,14 +48,21 @@ export default async function translate({ input, from, to, apikey, model }: Opti
   return async () => {
     const { done, value } = await reader.read();
     const s = new TextDecoder().decode(value);
-    const content = s
+    const values = s
       .split('\n\n')
       .filter((x) => x.startsWith('data: ') && x !== 'data: [DONE]')
-      .map((x) => JSON.parse(x.slice('data: '.length)).choices[0].delta.content)
+      .map((x) => JSON.parse(x.slice('data: '.length)));
+
+    const content = values
+      .map((x) => x.choices[0].delta.content)
       .join('');
+
+    const limit = values.some((x) => x.choices[0].finish_reason === 'length');
+
     return {
       done,
       content,
+      limit,
     };
   };
 }

@@ -75,19 +75,24 @@
     try {
       const read = await translate({ input, from, to, apikey, model });
       while (translateID === id) {
-        const { done, content } = await read();
+        const { done, content, limit } = await read();
+
+        output += content;
+
+        if (limit) {
+          output += '\n\n---\n\nERROR:\n  The input is too long to translate all.\n  Please shorten your input and retry.';
+        }
+
         if (done) {
           break;
         }
-
-        output += content;
       }
     } catch(err) {
-      alert('Failed to translate.');
+      console.error(err);
       if (output !== '') {
         output += '\n\n---\n\n';
       }
-      output += 'ERROR:\n' + JSON.stringify(err, null, '  ');
+      output += 'ERROR:\n  Failed to translate.\n  Please retry later.';
     }
   }
 
