@@ -54,6 +54,7 @@
     }
 
     output = '';
+
     if (!input.trim()) {
       return;
     }
@@ -74,6 +75,7 @@
 
     try {
       const read = await translate({ input, from, to, apikey, model });
+      output = '';
       while (translateID === id) {
         const { done, content, limit } = await read();
 

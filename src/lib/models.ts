@@ -1,21 +1,23 @@
 import { readable } from 'svelte/store';
 
-const ALL_MODELS = [
-  'gpt-3.5-turbo',
-  'gpt-3.5-turbo-16k',
-  'gpt-4',
-  'gpt-4-32k',
-];
+export const tokenLimits = {
+  'gpt-3.5-turbo': 4096, // TODO: DEBUG
+  'gpt-3.5-turbo-16k': 16384,
+  'gpt-4': 8192,
+  'gpt-4-32k': 32768,
+};
+
+const allModelNames = Object.keys(tokenLimits);
 
 let setModels = (_: string[]) => {};
 
-export const models = readable(ALL_MODELS, (set) => {
+export const models = readable(allModelNames, (set) => {
   setModels = set;
 });
 
 export async function refreshModels(apikey: string) {
   if (!apikey.match(/sk-[a-zA-Z0-9]+/)) {
-    setModels(ALL_MODELS);
+    setModels(allModelNames);
   }
 
   try {
@@ -35,16 +37,16 @@ export async function refreshModels(apikey: string) {
     }
 
     const all = (await resp.json()).data.map(({ id }: { id: string }) => id);
-    const models = all.filter((id: string) => ALL_MODELS.includes(id));
+    const models = all.filter((id: string) => allModelNames.includes(id));
     models.sort();
 
     if (models.length > 0) {
       setModels(models);
     } else {
-      setModels(ALL_MODELS);
+      setModels(allModelNames);
     }
   } catch (err) {
-    setModels(ALL_MODELS);
+    setModels(allModelNames);
     throw err;
   }
 }

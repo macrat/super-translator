@@ -1,3 +1,6 @@
+import { tokenLimits } from './models';
+import countTokens from './tokenizer';
+
 export interface Options {
   input: string;
   from: string;
@@ -7,6 +10,46 @@ export interface Options {
 }
 
 export default async function translate({ input, from, to, apikey, model }: Options) {
+  const messages = [
+    {
+      role: 'system',
+      content: 'Give conversion from source to output. Use the same language as source if not specified language.',
+    },
+    {
+      role: 'user',
+      content: 'source: Casual\noutput: Formal\n\n###\n\nやあ！ 元気？',
+    },
+    {
+      role: 'assistant',
+      content: 'こんにちは。お元気ですか？',
+    },
+    {
+      role: 'user',
+      content: 'source: auto\noutput: Python\n\n###\n\nfunction greeting() {\n  console.log("hello");\n}',
+    },
+    {
+      role: 'assistant',
+      content: 'def greeting():\n    print("hello")',
+    },
+    {
+      role: 'user',
+      content: `source: ${from.trim()}\noutput: ${to.trim()}\n\n###\n\n${input}`,
+    }
+  ];
+
+  const tokens = messages.reduce((n, { content }) => n + countTokens(content), 0);
+  const limit = tokenLimits[model];
+
+  if (tokens >= limit) {
+    return async () => {
+      return Promise.resolve({
+        done: true,
+        limit: false,
+        content: `ERROR:\n  The input is too long to translate.\n  Please shorten your input and retry.\n\n  Used tokens: ${tokens}\n  Maximum tokens: ${limit}`,
+      });
+    };
+  }
+
   const resp = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -17,25 +60,7 @@ export default async function translate({ input, from, to, apikey, model }: Opti
       model,
       temperature: 0,
       stream: true,
-      messages: [{
-        role: 'system',
-        content: 'Give conversion from source to output. Use the same language as source if not specified language.',
-      }, {
-        role: 'user',
-        content: 'source: Casual\noutput: Formal\n\n###\n\nやあ！ 元気？',
-      }, {
-        role: 'assistant',
-        content: 'こんにちは。お元気ですか？',
-      }, {
-        role: 'user',
-        content: 'source: auto\noutput: Python\n\n###\n\nfunction greeting() {\n  console.log("hello");\n}',
-      }, {
-        role: 'assistant',
-        content: 'def greeting():\n    print("hello")',
-      }, {
-        role: 'user',
-        content: `source: ${from.trim()}\noutput: ${to.trim()}\n\n###\n\n${input}`,
-      }],
+      messages,
     }),
   });
 
