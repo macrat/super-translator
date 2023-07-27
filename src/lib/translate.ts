@@ -16,15 +16,7 @@ function buildMessages({ input, from, to }: CountTokensOptions): Message[] {
   return [
     {
       role: 'system',
-      content: 'Give conversion from source to output. Use the same language as source if not specified language.',
-    },
-    {
-      role: 'user',
-      content: 'source: Casual\noutput: Formal\n\n###\n\nやあ！ 元気？',
-    },
-    {
-      role: 'assistant',
-      content: 'こんにちは。お元気ですか？',
+      content: 'Convert source to target. Use the same language as source if the language is not specified.',
     },
     {
       role: 'user',
