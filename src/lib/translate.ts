@@ -37,7 +37,7 @@ export default async function translate({ input, from, to, apikey, model }: Opti
     }
   ];
 
-  const tokens = messages.reduce((n, { content }) => n + countTokens(content), 0);
+  const tokens = countTokens(messages);
   const limit = tokenLimits[model];
 
   if (tokens >= limit) {
