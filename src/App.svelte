@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import translate from './lib/translate';
-  import { models, refreshModels } from './lib/models';
+  import { translate, countTokens } from './lib/translate';
+  import { models, refreshModels, tokenLimits } from './lib/models';
+  import { loaded as tokenizerLoaded } from './lib/tokenizer';
   import languages from './languages.json';
 
   const preferLanguage = navigator.language.split('-')[0].toLowerCase()
@@ -140,7 +141,12 @@
 </script>
 
 <main>
-  <textarea bind:value={input} autofocus bind:this={fromElm} on:scroll={syncScroll(fromElm, toElm)} placeholder="Input text here" />
+  <div>
+    <textarea bind:value={input} autofocus bind:this={fromElm} on:scroll={syncScroll(fromElm, toElm)} placeholder="Input text here" />
+    {#if $tokenizerLoaded}
+      <span>{countTokens({ input, from, to })} / {tokenLimits[model]} tokens</span>
+    {/if}
+  </div>
   <form on:submit|preventDefault={() => run(true)}>
     <label>From<input bind:value={from} autocomplete="on" list="languages-from" on:change={saveSettings} /></label>
     <label>To<input bind:value={to} autocomplete="on" list="languages-to" on:change={saveSettings} /></label>
@@ -165,7 +171,9 @@
       {/each}
     </datalist>
   </form>
-  <textarea bind:this={toElm} on:scroll={syncScroll(toElm, fromElm)} value={output} readonly placeholder="Translated version here" />
+  <div>
+    <textarea bind:this={toElm} on:scroll={syncScroll(toElm, fromElm)} value={output} readonly placeholder="Translated version here" />
+  </div>
 </main>
 
 <style>
@@ -178,17 +186,33 @@
     height: 100dvh;
   }
 
-  textarea {
+  div {
+    position: relative;
     display: flex;
     flex-direction: column;
     flex: 1 1 0;
+    margin: 12px;
+  }
+  textarea {
+    height: 100%;
     overflow: auto;
     font-family: inherit;
     font-size: inherit;
-    margin: 12px;
-    padding: 12px 16px;
+    padding: 12px 16px 16px;
     box-sizing: border-box;
-    border: 1px solid #000;
+    border: none;
+    resize: none;
+    color: #333;
+    background-color: #eee;
+  }
+  span {
+    position: absolute;
+    right: 12px;
+    bottom: 0;
+    color: #4f4f4f;
+    background-color: rgba(238, 238, 238, 0.7);
+    padding: 2px 4px 4px;
+    font-size: 90%;
   }
 
   form {
@@ -241,12 +265,6 @@
   button:active {
     background-color: #988;
   }
-  textarea {
-    border: none;
-    resize: none;
-    color: #333;
-    background-color: #eee;
-  }
   textarea:focus {
     outline: 2px solid #000;
   }
@@ -297,6 +315,10 @@
     }
     input, select {
       border-bottom-color: #999;
+    }
+    span {
+      color: #c2c2c2;
+      background-color: rgba(51, 51, 51, 0.7);
     }
     input:focus, select:focus {
       border-bottom-color: #f0f0f0;

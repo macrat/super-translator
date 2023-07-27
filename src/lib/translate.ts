@@ -1,16 +1,19 @@
 import { tokenLimits } from './models';
-import countTokens from './tokenizer';
+import count from './tokenizer';
 
-export interface Options {
+export interface CountTokensOptions {
   input: string;
   from: string;
   to: string;
-  apikey: string;
-  model: string;
 }
 
-export default async function translate({ input, from, to, apikey, model }: Options) {
-  const messages = [
+interface Message {
+  role: 'system' | 'user' | 'assistant';
+  content: string;
+}
+
+function buildMessages({ input, from, to }: CountTokensOptions): Message[] {
+  return [
     {
       role: 'system',
       content: 'Give conversion from source to output. Use the same language as source if not specified language.',
@@ -36,8 +39,27 @@ export default async function translate({ input, from, to, apikey, model }: Opti
       content: `source: ${from.trim()}\noutput: ${to.trim()}\n\n###\n\n${input}`,
     }
   ];
+}
 
-  const tokens = countTokens(messages);
+export function countTokens(opts: CountTokensOptions): number {
+  return count(buildMessages(opts));
+}
+
+export interface TranslateOptions extends CountTokensOptions {
+  apikey: string;
+  model: string;
+}
+
+export type TranslationIterator = () => Promise<{
+  done: boolean;
+  limit: boolean;
+  content: string;
+}>;
+
+export async function translate({ input, from, to, apikey, model }: TranslateOptions): Promise<TranslationIterator> {
+  const messages = buildMessages({ input, from, to });
+
+  const tokens = count(messages);
   const limit = tokenLimits[model];
 
   if (tokens >= limit) {
