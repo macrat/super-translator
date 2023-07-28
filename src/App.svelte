@@ -252,7 +252,6 @@
     border-bottom: 2px solid #aaa;
     padding: 8px 4px;
     background-color: #f3f3f3;
-    transition: .2s border-color;
   }
   input:focus, select:focus {
     border-bottom: 2px solid #000;
@@ -270,7 +269,6 @@
     background-color: #766;
     padding: 8px 4px;
     border: none;
-    transition: .1s background-color;
     cursor: pointer;
   }
   button:focus {
