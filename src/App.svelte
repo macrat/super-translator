@@ -15,6 +15,7 @@
   let to = defaultLanguage;
   let apikey = '';
   let model = 'gpt-3.5-turbo'
+  let loading = false;
 
   let fromElm: HTMLTextAreaElement;
   let toElm: HTMLTextAreaElement;
@@ -63,6 +64,8 @@
       return;
     }
 
+    loading = true;
+
     if (!from.trim()) {
       from = 'auto';
     }
@@ -100,6 +103,8 @@
       }
       output += 'ERROR:\n  Failed to translate.\n  Please retry later.';
     }
+
+    loading = false;
   }
 
   onMount(() => {
@@ -147,13 +152,18 @@
   <div>
     <textarea bind:value={input} autofocus bind:this={fromElm} on:scroll={syncScroll(fromElm, toElm)} placeholder="Input text here" />
     {#if $tokenizerLoaded}
-      <span>{countTokens({ input, from, to })} / {tokenLimits[model]} tokens</span>
+      <span id="token-count">{countTokens({ input, from, to })} / {tokenLimits[model]} tokens</span>
     {/if}
   </div>
   <form on:submit|preventDefault={() => run(true)}>
     <label>From<input bind:value={from} autocomplete="on" list="languages-from" on:change={saveSettings} /></label>
     <label>To<input bind:value={to} autocomplete="on" list="languages-to" on:change={saveSettings} /></label>
-    <button>Translate</button>
+    <button>
+      Translate
+      {#if loading }
+        <span id="loading" />
+      {/if}
+    </button>
     <label>OpenAI API Key<input bind:this={keyElm} bind:value={apikey} type="password" required pattern="sk-[a-zA-Z0-9]+" autocomplete="off" on:change={onChangeAPIKey} /></label>
     <label>Model<select bind:value={model} on:change={saveSettings}>
       {#each $models as model}
@@ -208,7 +218,7 @@
     color: #333;
     background-color: #eee;
   }
-  span {
+  #token-count {
     position: absolute;
     right: 12px;
     bottom: 0;
@@ -255,6 +265,7 @@
     border-bottom-color: #f00;
   }
   button {
+    position: relative;
     color: #fff;
     background-color: #766;
     padding: 8px 4px;
@@ -279,6 +290,28 @@
   }
   ::-webkit-scrollbar-thumb {
     background-color: #999;
+  }
+
+  #loading {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #baa;
+    animation: loading 1.5s linear infinite;
+  }
+  @keyframes loading {
+    0% {
+      width: 0;
+      left: 0;
+    }
+    50% {
+      width: 100%;
+      left: 0;
+    }
+    100% {
+      width: 0;
+      left: 100%;
+    }
   }
 
   @media (max-width: 720px) {
@@ -319,7 +352,7 @@
     input, select {
       border-bottom-color: #999;
     }
-    span {
+    #token-count {
       color: #c2c2c2;
       background-color: rgba(51, 51, 51, 0.7);
     }
