@@ -10,6 +10,7 @@ self.addEventListener('install', (ev) => {
       '/offline.html',
       '/img/favicon.svg',
     ]);
+    await self.skipWaiting();
   })());
 });
 
@@ -23,6 +24,8 @@ self.addEventListener('activate', (ev) => {
     const names = await caches.keys();
     const invalids = names.filter((name) => name.startsWith(CACHE_PREFIX) && name !== CACHE_NAME);
     await Promise.all(invalids.map((name) => caches.delete(name)))
+
+    await clients.claim();
   })());
 });
 
