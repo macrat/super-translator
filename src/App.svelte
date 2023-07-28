@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { translate, countTokens } from './lib/translate';
+  import { translateWithCache, countTokens } from './lib/translate';
   import { models, refreshModels, tokenLimits } from './lib/models';
   import { loaded as tokenizerLoaded } from './lib/tokenizer';
   import languages from './languages.json';
@@ -30,7 +30,10 @@
     query.append('sl', from);
     query.append('tl', to);
     query.append('text', input);
-    history.pushState(null, null, '?' + query.toString());
+    const newpath = '?' + query.toString();
+    if (newpath !== location.search) {
+      history.pushState(null, null, newpath);
+    }
   }
 
   function loadQuery() {
@@ -75,7 +78,7 @@
     const id = translateID;
 
     try {
-      const read = await translate({ input, from, to, apikey, model });
+      const read = await translateWithCache({ input, from, to, apikey, model });
       output = '';
       while (translateID === id) {
         const { done, content, limit } = await read();

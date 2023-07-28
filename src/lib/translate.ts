@@ -105,3 +105,79 @@ export async function translate({ input, from, to, apikey, model }: TranslateOpt
     };
   };
 }
+
+interface HistoryObject {
+  input: string;
+  from: string;
+  to: string;
+  model: string;
+  output: string[];
+  timestamp: number;
+}
+
+const HISTORY_KEY = 'super-translator-history';
+
+function loadHistory(): HistoryObject[] {
+  try {
+    return JSON.parse(window.localStorage?.getItem(HISTORY_KEY)) ?? [];
+  } catch (err) {
+    return [];
+  }
+}
+
+function saveHistory(x: HistoryObject) {
+  try {
+    const hist = loadHistory();
+    window.localStorage?.setItem(HISTORY_KEY, JSON.stringify([x, ...hist].slice(0, 100)));
+  } catch (err) {
+    // Nothing to do.
+  }
+}
+
+export async function translateWithCache(req: TranslateOptions): Promise<TranslationIterator> {
+  const cache = loadHistory().find((x) => (
+    x.input === req.input &&
+      x.from === req.from &&
+      x.to === req.to &&
+      x.model === req.model
+  ));
+
+  const ttl = 7 * 24 * 60 * 60 * 1000; // The cache is available up to 7 days.
+
+  if (cache != null && cache.timestamp + ttl > new Date().getTime()) {
+    let idx = 0;
+
+    return async () => new Promise((resolve) => {
+      setTimeout(() => {
+        const content = cache.output[idx];
+        idx++;
+        resolve({
+          content: content,
+          done: idx >= cache.output.length,
+          limit: false,
+        });
+      }, idx === 0 ? 0 : 5);
+    });
+  }
+
+  const itr = await translate(req);
+  let output: string[] = [];
+
+  return async () => {
+    const { content, done, limit } = await itr();
+
+    output.push(content);
+    if (done && !limit) {
+      saveHistory({
+        input: req.input,
+        from: req.from,
+        to: req.to,
+        model: req.model,
+        output,
+        timestamp: new Date().getTime(),
+      });
+    }
+
+    return { content, done, limit };
+  };
+}
