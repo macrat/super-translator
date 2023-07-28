@@ -28,7 +28,6 @@ export const loaded = readable(false, (setLoaded) => {
       const contentTokens = ms.reduce((acc, { content }) => (
         acc + enc.encode(content).length + TOKENS_PER_MESSAGE
       ), 0);
-      console.log(ms, contentTokens + BASE_TOKENS);
       return contentTokens + BASE_TOKENS;
     };
     setLoaded(true);
