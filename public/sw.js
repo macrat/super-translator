@@ -8,7 +8,7 @@ self.addEventListener('install', (ev) => {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll([
       '/offline.html',
-      '/favicon.svg',
+      '/img/favicon.svg',
     ]);
   })());
 });
