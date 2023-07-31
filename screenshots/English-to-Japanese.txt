@@ -1,0 +1,16 @@
+### input ###
+
+Usage of Super Translator:
+
+1. Set "OpenAI API Key".
+2. Write whatever you want to translate.
+3. Hit the "Translate" button.
+
+
+### output ###
+
+Super Translatorの使用方法：
+
+1. 「OpenAI APIキー」を設定します。
+2. 翻訳したい内容を書きます。
+3. 「翻訳」ボタンをクリックします。

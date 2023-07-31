@@ -1,0 +1,16 @@
+### input ###
+
+def greeting(target: str):
+    print(f"hello {target}!")
+
+if __name__ == "__main__":
+    greeting("world")
+
+
+### output ###
+
+function greeting(target: string): void {
+    console.log(`hello ${target}!`);
+}
+
+greeting("world");

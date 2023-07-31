@@ -1,0 +1,15 @@
+### input ###
+
+name,score
+alice,123
+bob,456
+charlie,789
+
+
+### output ###
+
+| name   | score |
+|--------|-------|
+| alice  | 123   |
+| bob    | 456   |
+| charlie| 789   |
