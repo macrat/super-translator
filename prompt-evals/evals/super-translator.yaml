@@ -1,0 +1,8 @@
+super-translator:
+  id: super-translator.dev.v1
+  metrics: [accuracy]
+
+super-translator.dev.v1:
+  class: evals.elsuite.translate:Translate
+  args:
+    samples_jsonl: ../../../../../../../data/super-translator/samples.jsonl
