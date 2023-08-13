@@ -1,0 +1,39 @@
+Terms of Use and Plivacy Policy for the Super Translator
+
+The Super Translator (https://translate.macr.app) is a free and open source service.
+Please use it following the terms of use outlined below.
+
+
+# This service does...
+
+- This service does record your OpenAI API key, preferences, and your translation history in your browser's local storage.
+  This data is used only in your browser solely for your convinience.
+
+
+# This service does NOT...
+
+- This service does NOT collect anything about you.
+  Including your device information, your IP address, your location, your API key, your translation history, etc.
+
+- This service does NOT send your API key and your translation text to anywhere but OpenAI's API server.
+
+- This service and its developer do NOT accept any liability for any damage caused by using this service.
+
+
+# User has to...
+
+- User has to follow OpenAI's terms of use.
+  https://openai.com/terms-of-use
+
+- User has to follow local laws and regulations.
+
+
+# User can...
+
+- User can use this service for any purpose.
+  Including but not limited to commercial use and personal use.
+
+
+# Developer can...
+
+- The developer of this service can update these Terms of Use and Privacy Policy at any time without notice.

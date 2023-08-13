@@ -4,6 +4,7 @@
   import { models, refreshModels, tokenLimits } from './lib/models';
   import { loaded as tokenizerLoaded } from './lib/tokenizer';
   import languages from './languages.json';
+  import termsOfUse from './terms-of-use.txt?raw';
 
   const preferLanguage = navigator.language.split('-')[0].toLowerCase()
   const languageSet = languages[preferLanguage] ?? languages.en;
@@ -46,7 +47,7 @@
       to = defaultLanguage;
     }
 
-    if (input.trim() && apikey.trim()) {
+    if (input.trim() && apikey.trim() && query.get('run') !== 'false') {
       run();
     }
   }
@@ -184,6 +185,8 @@
         <option {value} />
       {/each}
     </datalist>
+
+    <a href={`/?sl=English&tl=auto&text=${encodeURIComponent(termsOfUse)}&run=false`} target="_blank" rel="noopener"><span>Terms of Use</span> / <span>Privacy Policy</span></a>
   </form>
   <div>
     <textarea bind:this={toElm} on:scroll={syncScroll(toElm, fromElm)} value={output} readonly placeholder="Translated version here" />
@@ -234,6 +237,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 4px 0;
+    width: 9rem;
   }
   label, button {
     margin: 8px 0;
@@ -291,6 +295,17 @@
     background-color: #999;
   }
 
+  a {
+    font-size: 80%;
+    color: #666;
+    margin: auto 0 4px;
+    text-align: center;
+  }
+  a span {
+    display: inline-block;
+    text-decoration: underline;
+  }
+
   #loading {
     position: absolute;
     bottom: 0;
@@ -322,6 +337,7 @@
     form {
       flex-direction: row;
       flex-wrap: wrap;
+      width: auto;
     }
     label {
       flex: 1 0 40%;
@@ -335,13 +351,16 @@
     input, select {
       width: 100%;
     }
+    a {
+      margin: 0 16px;
+    }
   }
 
   @media (prefers-color-scheme: dark) {
     main {
       background-color: #111;
     }
-    label {
+    label, a {
       color: #aaa;
     }
     input, select, textarea {
