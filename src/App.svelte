@@ -186,7 +186,7 @@
       {/each}
     </datalist>
 
-    <a href={`/?sl=English&tl=auto&text=${encodeURIComponent(termsOfUse)}&run=false`} target="_blank" rel="noopener"><span>Terms of Use</span> / <span>Privacy Policy</span></a>
+    <a href={`/?sl=English&tl=auto&text=${encodeURIComponent(termsOfUse)}&run=false`} target="_blank" rel="noopener">Terms and Policies</a>
   </form>
   <div>
     <textarea bind:this={toElm} on:scroll={syncScroll(toElm, fromElm)} value={output} readonly placeholder="Translated version here" />
@@ -251,6 +251,9 @@
     font-size: 80%;
     color: #666;
   }
+  label:first-child {
+    margin-top: auto;
+  }
   input, select {
     font-size: 120%;
     border: none;
@@ -300,10 +303,6 @@
     color: #666;
     margin: auto 0 4px;
     text-align: center;
-  }
-  a span {
-    display: inline-block;
-    text-decoration: underline;
   }
 
   #loading {
