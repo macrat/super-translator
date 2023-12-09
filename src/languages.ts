@@ -20,6 +20,7 @@ const languages: { [key: string]: string[] } = {
     'Python',
     'CSV',
     'JSON',
+    'JSON Object',
     'Markdown',
   ],
   en: [
@@ -43,6 +44,7 @@ const languages: { [key: string]: string[] } = {
     'Python',
     'CSV',
     'JSON',
+    'JSON Object',
     'Markdown',
   ],
 };

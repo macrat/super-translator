@@ -48,6 +48,16 @@ export type TranslationIterator = () => Promise<{
   content: string;
 }>;
 
+function responseFormat({ to, model }: { to: string; model: string }): { type: string } | undefined {
+  if (model === 'gpt-4-1106-preview') {
+    if (to.toLowerCase() === 'json object') {
+      return { type: 'json_object' };
+    }
+  }
+
+  return undefined;
+}
+
 export async function translate({ input, from, to, apikey, model }: TranslateOptions): Promise<TranslationIterator> {
   const messages = buildMessages({ input, from, to });
 
@@ -74,6 +84,7 @@ export async function translate({ input, from, to, apikey, model }: TranslateOpt
       model,
       temperature: 0,
       stream: true,
+      response_format: responseFormat({ to, model }),
       messages,
     }),
   });
