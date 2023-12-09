@@ -154,7 +154,7 @@
     <!-- svelte-ignore a11y-autofocus -->
     <textarea bind:value={input} autofocus bind:this={fromElm} on:scroll={syncScroll(fromElm, toElm)} placeholder="Input text here" />
     {#if $tokenizerLoaded}
-      <span id="token-count">{countTokens({ input, from, to })} / {tokenLimits[model]} tokens</span>
+      <span id="token-count">{countTokens({ input, from, to }).toLocaleString()} / {tokenLimits[model].toLocaleString()} tokens</span>
     {/if}
   </div>
   <form on:submit|preventDefault={() => run(true)}>
