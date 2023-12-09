@@ -327,7 +327,7 @@
     }
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 60em) and (orientation: portrait), (max-width: 720px) {
     main {
       flex-direction: column;
       height: 100vh;
