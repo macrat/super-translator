@@ -49,7 +49,7 @@ export type TranslationIterator = () => Promise<{
 }>;
 
 function responseFormat({ to, model }: { to: string; model: string }): { type: string } | undefined {
-  if (model === 'gpt-4-1106-preview') {
+  if (model === 'gpt-4-1106-preview' || model === 'gpt-3.5-turbo-1106') {
     if (to.toLowerCase() === 'json object') {
       return { type: 'json_object' };
     }
