@@ -39,7 +39,7 @@ export function countTokens(opts: CountTokensOptions): number {
 
 export interface TranslateOptions extends CountTokensOptions {
   apikey: string;
-  model: string;
+  model: keyof typeof tokenLimits;
 }
 
 export type TranslationIterator = () => Promise<{
@@ -82,7 +82,7 @@ export async function translate({ input, from, to, apikey, model }: TranslateOpt
     throw new Error('Failed to invoke OpenAI API.');
   }
 
-  const reader = resp.body.getReader();
+  const reader = resp.body?.getReader()!;
 
   return async () => {
     const { done, value } = await reader.read();
@@ -119,7 +119,7 @@ const HISTORY_KEY = 'super-translator-history';
 
 function loadHistory(): HistoryObject[] {
   try {
-    return JSON.parse(window.localStorage?.getItem(HISTORY_KEY)) ?? [];
+    return JSON.parse(window.localStorage?.getItem(HISTORY_KEY) ?? '[]') ?? [];
   } catch (err) {
     return [];
   }

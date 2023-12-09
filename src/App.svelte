@@ -3,19 +3,19 @@
   import { translateWithCache, countTokens } from './lib/translate';
   import { models, refreshModels, tokenLimits } from './lib/models';
   import { loaded as tokenizerLoaded } from './lib/tokenizer';
-  import languages from './languages.json';
+  import languages from './languages';
   import termsOfUse from './terms-of-use.txt?raw';
 
   const preferLanguage = navigator.language.split('-')[0].toLowerCase()
   const languageSet = languages[preferLanguage] ?? languages.en;
-  const defaultLanguage = new Intl.DisplayNames([preferLanguage], { type: 'language' }).of(preferLanguage);
+  const defaultLanguage = new Intl.DisplayNames([preferLanguage], { type: 'language' }).of(preferLanguage) ?? 'English';
 
   let input = '';
   let output = '';
   let from = 'auto';
   let to = defaultLanguage;
   let apikey = '';
-  let model = 'gpt-3.5-turbo'
+  let model: keyof typeof tokenLimits = 'gpt-3.5-turbo'
   let loading = false;
 
   let fromElm: HTMLTextAreaElement;
@@ -34,7 +34,7 @@
     query.append('text', input);
     const newpath = '?' + query.toString();
     if (newpath !== location.search) {
-      history.pushState(null, null, newpath);
+      history.pushState(null, '', newpath);
     }
   }
 
